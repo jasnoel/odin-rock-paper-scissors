@@ -1,4 +1,4 @@
-let computerPlay = () => {
+const computerPlay = () => {
     let nb = Math.floor(Math.random() * 3)
     if (nb == 0) {
         return "Rock"
@@ -9,13 +9,13 @@ let computerPlay = () => {
     }
 }
 
-let battle = (playerSelection, computerSelection) => {
+const battle = (playerSelection, computerSelection) => {
     switch (playerSelection) {
         case 'rock': {
             if (computerSelection == 'rock') {
                 return "Draw, you both chose rock"
             } else if (computerSelection == 'paper') {
-                return "Lost, papers beats rock"
+                return "Loose, papers beats rock"
             } else {
                 return "Win, rock beats scissors"
             }
@@ -24,7 +24,7 @@ let battle = (playerSelection, computerSelection) => {
             if (computerSelection == 'paper') {
                 return "Draw, you both chose paper"
             } else if (computerSelection == 'scissors') {
-                return "Lost, scissors beat paper"
+                return "Loose, scissors beat paper"
             } else {
                 return "Win, paper beats rock"
             }
@@ -33,7 +33,7 @@ let battle = (playerSelection, computerSelection) => {
             if (computerSelection == 'scissors') {
                 return "Draw, you both chose scissors"
             } else if (computerSelection == 'rock') {
-                return "Lost, rock beats scissors"
+                return "Loose, rock beats scissors"
             } else {
                 return "Win, scissors beat paper"
             }
@@ -44,7 +44,7 @@ let battle = (playerSelection, computerSelection) => {
     }
 }
 
-let round = (playerSelection, computerSelection) => {
+const round = (playerSelection, computerSelection) => {
     playerSelection = playerSelection.trim().toLowerCase()
     computerSelection = computerSelection.trim().toLowerCase()
     let result = battle(playerSelection, computerSelection);
@@ -52,4 +52,26 @@ let round = (playerSelection, computerSelection) => {
     return result
 } 
 
-console.log(round("SCISSRS", computerPlay()))
+const game = () => {
+    let playerScore = 0;
+    let computerScore = 0;
+    let historic = [];
+    while (playerScore < 3 && computerScore < 3) {
+        let playerPlay = prompt("Enter rock paper or scissors").trim().toLocaleLowerCase();
+        let result = round(playerPlay, computerPlay())
+        if (result.trim().toLocaleLowerCase().includes('win')) {
+            playerScore += 1;
+        } else if (result.trim().toLocaleLowerCase().includes('loose')) {
+            computerScore += 1;
+        }
+        historic.push(result);
+        console.log(result);
+    }
+    if (playerScore >= 3) {
+        console.log("**** YOU WON THE BEST OF 5 :D ****");
+    } else if (computerScore >= 3) {
+        console.log("**** YOU LOST THE BEST OF 5 :c ****")
+    }
+}
+
+game()
